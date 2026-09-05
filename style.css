@@ -565,24 +565,53 @@ textarea {
 }
 
 .ticker-pill {
+  transition: all 0.2s ease;
+  position: relative;
+  padding-left: 24px !important; /* Make room for selection dot */
   background: #bae6fd;
   color: var(--purple-darkest);
   border: 2px solid var(--purple-darkest);
-  padding: 0.45rem 0.95rem;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+  padding-right: 0.95rem;
   border-radius: 20px;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.82rem;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.2s ease;
   box-shadow: 0 2px 6px rgba(30, 8, 71, 0.08);
 }
 
-.ticker-pill:hover, .ticker-pill.active {
+.ticker-pill::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: transparent;
+}
+
+.ticker-pill:hover {
   background: var(--purple-darkest);
   color: #ffffff;
   border-color: var(--purple-darkest);
   box-shadow: 0 3px 10px rgba(30, 8, 71, 0.25);
+}
+
+.ticker-pill.active {
+  background-color: #2f5496 !important; /* Theme blue from FRD */
+  color: white !important;
+  border-color: #2f5496 !important;
+  box-shadow: 0 4px 10px rgba(47, 84, 150, 0.3);
+}
+
+.ticker-pill.active::before {
+  background-color: #a3e635; /* Bright green check dot */
+  border-color: #a3e635;
 }
 
 .ticker-input-highlight {
@@ -773,3 +802,52 @@ textarea {
   border: 2px solid var(--purple-darkest);
   box-shadow: 0 4px 12px rgba(30, 8, 71, 0.08);
 }
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  header.app-header, .panel:not(#results-panel), footer.app-footer, .api-keys-grid, .form-actions, .chart-type-selector, .results-header button {
+    display: none !important;
+  }
+  #results-panel {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+/* Breathing pulse animations for active map nodes */
+@keyframes mapPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+}
+
+.pulse-ring {
+  transform-origin: center;
+  animation: mapPulse 3s infinite ease-in-out;
+}
+
+.map-node {
+  transition: all 0.3s ease;
+}
+
+.map-node.inactive {
+  opacity: 0.15; /* Dim countries that have no active selected tickers */
+}
+
+.map-node.inactive .pulse-ring {
+  animation: none; /* Turn off pulsing for inactive markets */
+}
+

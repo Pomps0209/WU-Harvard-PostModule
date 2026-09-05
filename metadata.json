@@ -1,6 +1,6 @@
 {
-  "name": "GenAI Finance App",
-  "description": "Financial research assistant analyzing stock price history and generating notes.",
+  "name": "GenAI Cross-Regional Hedge & Portfolio Intelligence",
+  "description": "AI-Driven Risk-Parity Allocation & Cross-Border Footprint Analysis Across Austria, EU, U.S., and Latin America.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

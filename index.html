@@ -11,49 +11,63 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- Header Banner Section (Shade 1: Soft Sky Ice Blue) -->
-  <header class="app-header section-sky">
-    <div class="header-content">
-      <div class="brand-badge">EQUITY RESEARCH LAB</div>
-      <h1>GenAI Finance & Equity Research Note Generator</h1>
-      <p class="subtitle">AI-powered financial analysis, earnings call packets, and real-time market notes</p>
+  <!-- Header Banner Section -->
+  <header style="text-align: center; margin-bottom: 2rem; border-bottom: 3px solid #2f5496; padding: 1.5rem 1rem; background: #f8fafc;">
+    <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+      <div>
+        <h1 style="color: #2f5496; font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800; letter-spacing: -0.5px;">
+          GenAI Cross-Regional Hedge & Portfolio Intelligence
+        </h1>
+        <p style="color: #4b5563; font-size: 1.15rem; font-weight: 500; margin: 0 auto; max-width: 800px;">
+          AI-Driven Risk-Parity Allocation & Cross-Border Footprint Analysis Across Austria, EU, U.S., and Latin America
+        </p>
+      </div>
+      <div>
+        <button type="button" id="global-download-pdf" class="btn-primary" style="background: white; color: #2f5496; border: 2px solid #2f5496; font-weight: 700; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">📥 Download PDF Report</button>
+      </div>
     </div>
   </header>
 
   <main class="app-main">
     <!-- SECTION: Live Ticker Market Analysis View -->
     <div id="view-live" class="view-content active">
-      <!-- Configuration Panel: API Keys & Transcripts (Shade 3: Alice Light Blue) -->
-      <section class="panel section-alice" id="config-panel">
-        <h2>🔐 API Credentials & Earnings Call Transcripts</h2>
-        <div class="api-keys-grid">
-          <div class="input-group">
-            <label for="openrouter-key">OpenRouter API Key (Optional for AI note & transcript analysis)</label>
-            <input id="openrouter-key" name="openrouter-key" type="password" placeholder="sk-or-v1-..." />
-            <p class="field-hint">Required for live LLM analysis. If blank, robust offline rule-based financial synthesis will be generated.</p>
-          </div>
-          <div class="input-group">
-            <label for="finnhub-key">Finnhub API Key (Optional for live earnings transcripts)</label>
-            <input id="finnhub-key" name="finnhub-key" type="password" placeholder="Finnhub API Key" />
-            <p class="field-hint">Get a free key at <a href="https://finnhub.io" target="_blank" rel="noopener">finnhub.io</a> for live earnings call transcripts.</p>
-          </div>
-          <div class="input-group">
-            <label for="twelvedata-key">Twelve Data API Key (Optional for live price history)</label>
-            <input id="twelvedata-key" name="twelvedata-key" type="password" placeholder="Twelve Data Key" />
-            <p class="field-hint">Get a free key at <a href="https://twelvedata.com/pricing" target="_blank" rel="noopener">twelvedata.com</a> for live stocks & ETFs.</p>
-          </div>
-          <div class="input-group">
-            <label for="newsdata-key">NewsData.io API Key (Optional for live headlines)</label>
-            <input id="newsdata-key" name="newsdata-key" type="password" placeholder="NewsData.io Key" />
-            <p class="field-hint">Optional key for fetching recent financial news headlines for the analyzed ticker.</p>
-          </div>
-          <div class="input-group">
-            <label for="transcript-csvs">Earnings Call Transcripts (Optional, up to 4 CSV URLs)</label>
-            <input id="transcript-csvs" name="transcript-csvs" type="text" placeholder="https://example.com/transcript1.csv, https://example.com/transcript2.csv" />
-            <p class="field-hint">Enter up to 4 comma-separated CSV URLs containing earnings call transcript data for automated sentiment & extraction parsing.</p>
+      <!-- Configuration Panel: API Keys & Transcripts (Collapsible) -->
+      <details class="card section-alice" style="margin-bottom: 1.5rem; border: 1px solid rgba(47, 84, 150, 0.2); background: #fdfdfd; padding: 0.2rem 1rem;" id="config-panel">
+        <summary style="font-weight: 800; cursor: pointer; color: #2f5496; display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; outline: none; list-style: none;">
+          <span>🔐 API Connection & Transcript Settings (Optional for live data)</span>
+          <span style="font-size: 1.2rem; color: #2f5496;">⚙️</span>
+        </summary>
+        <div style="margin-top: 1rem; border-top: 1px solid #eaeaea; padding-top: 1rem; font-size: 0.9rem;">
+          <p class="subtitle" style="margin-bottom: 1rem;">If keys are left blank, the app runs a robust, rules-based simulation using cached metrics from the original repository.</p>
+          <div class="api-keys-grid">
+            <div class="input-group">
+              <label for="openrouter-key">OpenRouter API Key (Optional for AI note & transcript analysis)</label>
+              <input id="openrouter-key" name="openrouter-key" type="password" placeholder="sk-or-v1-..." />
+              <p class="field-hint">Required for live LLM analysis. If blank, robust offline rule-based financial synthesis will be generated.</p>
+            </div>
+            <div class="input-group">
+              <label for="finnhub-key">Finnhub API Key (Optional for live earnings transcripts)</label>
+              <input id="finnhub-key" name="finnhub-key" type="password" placeholder="Finnhub API Key" />
+              <p class="field-hint">Get a free key at <a href="https://finnhub.io" target="_blank" rel="noopener">finnhub.io</a> for live earnings call transcripts.</p>
+            </div>
+            <div class="input-group">
+              <label for="twelvedata-key">Twelve Data API Key (Optional for live price history)</label>
+              <input id="twelvedata-key" name="twelvedata-key" type="password" placeholder="Twelve Data Key" />
+              <p class="field-hint">Get a free key at <a href="https://twelvedata.com/pricing" target="_blank" rel="noopener">twelvedata.com</a> for live stocks & ETFs.</p>
+            </div>
+            <div class="input-group">
+              <label for="newsdata-key">NewsData.io API Key (Optional for live headlines)</label>
+              <input id="newsdata-key" name="newsdata-key" type="password" placeholder="NewsData.io Key" />
+              <p class="field-hint">Optional key for fetching recent financial news headlines for the analyzed ticker.</p>
+            </div>
+            <div class="input-group">
+              <label for="transcript-csvs">Earnings Call Transcripts (Optional, up to 4 CSV URLs)</label>
+              <input id="transcript-csvs" name="transcript-csvs" type="text" placeholder="https://example.com/transcript1.csv, https://example.com/transcript2.csv" />
+              <p class="field-hint">Enter up to 4 comma-separated CSV URLs containing earnings call transcript data for automated sentiment & extraction parsing.</p>
+            </div>
           </div>
         </div>
-      </section>
+      </details>
 
       <section class="panel section-alice">
         <h2>📈 Live Stock & Market Equity Analysis</h2>
@@ -172,6 +186,120 @@
       </section>
 
       <div id="portfolio-dashboard-panel" class="dashboard-grid" style="margin-top: 2rem; display: none;">
+
+        <!-- 🌍 Dynamic Reactive Geographic Footprint Map -->
+        <div class="card" style="margin-bottom: 1.5rem; border: 1px solid rgba(47, 84, 150, 0.2); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); background: white; padding: 1.5rem; border-radius: 12px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.5rem;">🌍</span>
+              <h3 style="margin: 0; color: #2f5496; font-weight: 800;">Dynamic Geographic Capital Flow Map</h3>
+            </div>
+            <span style="font-family: monospace; font-size: 0.8rem; background-color: #e2efda; color: #2f5496; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: bold;">
+              ⚡ LIVE PORTFOLIO STATE
+            </span>
+          </div>
+          <p class="subtitle" style="margin-top: 0; color: #6b7280; font-size: 0.95rem; margin-bottom: 1.5rem;">
+            Select or deselect tickers above. The map dynamically updates regional nodes, sizes, and capital-flow connections based on active portfolio weights.
+          </p>
+
+          <!-- High-Tech Interactive SVG Map Box -->
+          <div style="position: relative; background-color: #f8fafc; border-radius: 8px; padding: 1rem; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+            <svg id="live-vector-map" viewBox="0 0 1000 500" style="width: 100%; height: auto; display: block; font-family: 'Montserrat', sans-serif;">
+              
+              <!-- Stylized Grid Lines -->
+              <g stroke="#cbd5e1" stroke-width="0.5" stroke-dasharray="2,5" opacity="0.6">
+                <!-- Latitudes -->
+                <line x1="0" y1="100" x2="1000" y2="100" />
+                <line x1="0" y1="200" x2="1000" y2="200" />
+                <line x1="0" y1="300" x2="1000" y2="300" />
+                <line x1="0" y1="400" x2="1000" y2="400" />
+                <!-- Longitudes -->
+                <line x1="200" y1="0" x2="200" y2="500" />
+                <line x1="400" y1="0" x2="400" y2="500" />
+                <line x1="600" y1="0" x2="600" y2="500" />
+                <line x1="800" y1="0" x2="800" y2="500" />
+              </g>
+
+              <!-- 🗺️ Sleek Schematic World Map Outlines -->
+              <g fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.2" stroke-linejoin="round" opacity="0.9">
+                
+                <!-- NORTH AMERICA (Encompasses US and Mexico) -->
+                <path d="M 50 120 L 70 80 L 120 70 L 180 60 L 220 50 L 260 60 L 250 100 L 280 120 L 260 160 L 270 190 L 250 200 L 240 180 L 230 220 L 210 220 L 195 245 L 180 260 L 170 280 L 180 290 L 160 280 L 155 250 L 140 250 L 130 220 L 110 180 L 95 180 L 80 150 Z" />
+                <!-- GREENLAND -->
+                <path d="M 280 40 L 340 30 L 360 60 L 320 90 L 290 80 Z" />
+                
+                <!-- SOUTH AMERICA (Encompasses Colombia and Argentina) -->
+                <path d="M 180 290 L 215 285 L 230 290 L 250 300 L 280 320 L 310 330 L 340 340 L 360 360 L 340 400 L 320 440 L 310 470 L 300 480 L 295 480 L 295 460 L 280 420 L 265 380 L 250 360 L 230 330 L 215 315 Z" />
+                
+                <!-- EUROPE & ASIA (Encompasses Austria HQ) -->
+                <path d="M 430 110 L 450 75 L 480 60 L 520 60 L 560 50 L 600 65 L 650 60 L 700 50 L 750 55 L 800 50 L 850 70 L 880 100 L 910 120 L 930 150 L 900 170 L 910 200 L 880 230 L 850 250 L 810 240 L 780 270 L 750 280 L 710 260 L 670 290 L 640 280 L 620 250 L 590 240 L 575 220 L 550 220 L 525 210 L 515 225 L 490 220 L 480 200 L 460 180 L 440 180 L 450 160 L 435 140 Z" />
+                <!-- UNITED KINGDOM & IRELAND -->
+                <path d="M 425 90 L 445 80 L 440 105 L 420 115 Z" />
+                <!-- JAPAN -->
+                <path d="M 915 150 L 930 160 L 920 190 L 910 180 Z" />
+                
+                <!-- AFRICA -->
+                <path d="M 450 220 L 480 205 L 510 215 L 535 215 L 565 235 L 585 240 L 590 270 L 620 295 L 610 330 L 580 370 L 550 420 L 540 430 L 530 410 L 520 360 L 500 340 L 460 310 L 430 285 L 425 250 L 440 230 Z" />
+                
+                <!-- AUSTRALIA -->
+                <path d="M 800 380 L 830 365 L 870 375 L 890 410 L 870 440 L 830 435 L 805 410 Z" />
+              </g>
+
+              <!-- Dynamic Connecting Capital Flow Arcs (Drawn dynamically via JS) -->
+              <g id="map-flow-lines" fill="none" stroke-linecap="round"></g>
+
+              <!-- 📌 Active Location Pins -->
+              <!-- AUSTRIA (Vienna Corporate HQ) -->
+              <g id="node-AT" class="map-node" transform="translate(510, 130)" style="cursor: pointer;">
+                <circle class="pulse-ring" r="18" fill="rgba(47, 84, 150, 0.25)" />
+                <circle r="8" fill="#2f5496" stroke="#ffffff" stroke-width="2" />
+                <text y="-20" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700">Vienna HQ (AT)</text>
+                <text id="lbl-AT" y="25" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">0.0%</text>
+              </g>
+
+              <!-- UNITED STATES (USD Funding Sleeve) -->
+              <g id="node-US" class="map-node" transform="translate(220, 140)" style="cursor: pointer;">
+                <circle class="pulse-ring" r="18" fill="rgba(16, 185, 129, 0.25)" />
+                <circle r="8" fill="#10b981" stroke="#ffffff" stroke-width="2" />
+                <text y="-20" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700">USA (Capex)</text>
+                <text id="lbl-US" y="25" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">0.0%</text>
+              </g>
+
+              <!-- MEXICO -->
+              <g id="node-MX" class="map-node" transform="translate(175, 235)" style="cursor: pointer;">
+                <circle class="pulse-ring" r="18" fill="rgba(245, 158, 11, 0.25)" />
+                <circle r="8" fill="#f59e0b" stroke="#ffffff" stroke-width="2" />
+                <text x="-15" y="4" text-anchor="end" fill="#1e293b" font-size="12" font-weight="700">Mexico (MX)</text>
+                <text id="lbl-MX" y="25" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">0.0%</text>
+              </g>
+
+              <!-- COLOMBIA -->
+              <g id="node-CO" class="map-node" transform="translate(230, 310)" style="cursor: pointer;">
+                <circle class="pulse-ring" r="18" fill="rgba(236, 72, 153, 0.25)" />
+                <circle r="8" fill="#ec4899" stroke="#ffffff" stroke-width="2" />
+                <text x="15" y="4" text-anchor="start" fill="#1e293b" font-size="12" font-weight="700">Colombia (CO)</text>
+                <text id="lbl-CO" y="25" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">0.0%</text>
+              </g>
+
+              <!-- ARGENTINA -->
+              <g id="node-AR" class="map-node" transform="translate(295, 460)" style="cursor: pointer;">
+                <circle class="pulse-ring" r="18" fill="rgba(168, 85, 247, 0.25)" />
+                <circle r="8" fill="#a855f7" stroke="#ffffff" stroke-width="2" />
+                <text x="15" y="4" text-anchor="start" fill="#1e293b" font-size="12" font-weight="700">Argentina (AR)</text>
+                <text id="lbl-AR" y="25" text-anchor="middle" fill="#475569" font-size="11" font-weight="600">0.0%</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="portfolio-actions" style="margin: 0 0 1rem 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button type="button" id="download-portfolio-csv" class="button btn-secondary" style="background-color: #f3f4f6; color: #111827; border: 1px solid #d1d5db; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">
+            📥 Export Allocations (CSV)
+          </button>
+          <button type="button" id="ai-rebalance-btn" class="button btn-primary" style="background-color: #2f5496; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">
+            🤖 Generate AI Rebalance Advisor
+          </button>
+        </div>
         <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
           <h3>📈 Multi-Ticker Portfolio Equity Curve</h3>
           <div id="portfolio-chart-box" style="height: 350px; width: 100%;"></div>
@@ -180,7 +308,28 @@
         <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
           <h3>📊 Cross-Regional Correlation Heatmap</h3>
           <p class="subtitle" style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">Cells under <strong>0.25</strong> highlighted in light green show the empirical diversification hedge [6].</p>
+          <div id="hedge-status-alert" style="margin: 1rem 0; padding: 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-family: monospace;">
+            <div>
+              <span style="font-weight: 800; display: block; font-size: 0.9rem;">EMERGING MARKET RISK STATUS:</span>
+              <span id="hedge-status-text" style="font-size: 1.1rem; font-weight: bold;">Analyzing correlations...</span>
+            </div>
+            <div id="hedge-status-badge" style="padding: 0.4rem 0.8rem; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">-</div>
+          </div>
           <div id="correlation-matrix-container"></div>
+        </div>
+
+        <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
+          <h3>⚡ Macro Stress-Test & Shock Simulator</h3>
+          <p class="subtitle" style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">Simulate macroeconomic shocks to assess portfolio drawdown and funding-liquidity buffer resilience.</p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <button type="button" class="stress-btn" data-shock="latam_deval" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🇲🇽 LatAm Currency Devaluation (-15%)</button>
+            <button type="button" class="stress-btn" data-shock="fed_hike" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🇺🇸 Fed Rate Hike (+200 bps)</button>
+            <button type="button" class="stress-btn" data-shock="vol_spike" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🌍 Global Volatility Shock (+50%)</button>
+            <button type="button" class="stress-btn" data-shock="reset" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #2f5496; background: #2f5496; color: white; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🔄 Reset Baseline</button>
+          </div>
+          <div id="stress-test-result" style="padding: 1rem; background: #f1f5f9; border-radius: 8px; font-family: monospace; font-size: 0.9rem; color: #334155;">
+            Select a macroeconomic stress scenario above to evaluate risk-parity capital resilience.
+          </div>
         </div>
 
         <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
@@ -196,7 +345,10 @@
     <section class="panel section-bright" id="results-panel">
       <div class="results-header">
         <h3>📄 Generated Research Note / Results</h3>
-        <button id="btn-copy-note" class="btn-small" style="display: none;">📋 Copy Note</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="download-pdf-note" class="btn-small" style="background: #2f5496; color: white;">📥 Download PDF</button>
+          <button id="btn-copy-note" class="btn-small" style="display: none;">📋 Copy Note</button>
+        </div>
       </div>
 
       <!-- Sentiment Analysis Visualizer Gauge Box -->
