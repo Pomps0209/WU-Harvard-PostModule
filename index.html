@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenAI Equity Research & Finance App</title>
+  <!-- Montserrat Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- Header Banner Section (Shade 1: Soft Sky Ice Blue) -->
+  <header class="app-header section-sky">
+    <div class="header-content">
+      <div class="brand-badge">EQUITY RESEARCH LAB</div>
+      <h1>GenAI Finance & Equity Research Note Generator</h1>
+      <p class="subtitle">AI-powered financial analysis, earnings call packets, and real-time market notes</p>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- SECTION: Live Ticker Market Analysis View -->
+    <div id="view-live" class="view-content active">
+      <!-- Configuration Panel: API Keys & Transcripts (Shade 3: Alice Light Blue) -->
+      <section class="panel section-alice" id="config-panel">
+        <h2>🔐 API Credentials & Earnings Call Transcripts</h2>
+        <div class="api-keys-grid">
+          <div class="input-group">
+            <label for="openrouter-key">OpenRouter API Key (Optional for AI note & transcript analysis)</label>
+            <input id="openrouter-key" name="openrouter-key" type="password" placeholder="sk-or-v1-..." />
+            <p class="field-hint">Required for live LLM analysis. If blank, robust offline rule-based financial synthesis will be generated.</p>
+          </div>
+          <div class="input-group">
+            <label for="finnhub-key">Finnhub API Key (Optional for live earnings transcripts)</label>
+            <input id="finnhub-key" name="finnhub-key" type="password" placeholder="Finnhub API Key" />
+            <p class="field-hint">Get a free key at <a href="https://finnhub.io" target="_blank" rel="noopener">finnhub.io</a> for live earnings call transcripts.</p>
+          </div>
+          <div class="input-group">
+            <label for="twelvedata-key">Twelve Data API Key (Optional for live price history)</label>
+            <input id="twelvedata-key" name="twelvedata-key" type="password" placeholder="Twelve Data Key" />
+            <p class="field-hint">Get a free key at <a href="https://twelvedata.com/pricing" target="_blank" rel="noopener">twelvedata.com</a> for live stocks & ETFs.</p>
+          </div>
+          <div class="input-group">
+            <label for="newsdata-key">NewsData.io API Key (Optional for live headlines)</label>
+            <input id="newsdata-key" name="newsdata-key" type="password" placeholder="NewsData.io Key" />
+            <p class="field-hint">Optional key for fetching recent financial news headlines for the analyzed ticker.</p>
+          </div>
+          <div class="input-group">
+            <label for="transcript-csvs">Earnings Call Transcripts (Optional, up to 4 CSV URLs)</label>
+            <input id="transcript-csvs" name="transcript-csvs" type="text" placeholder="https://example.com/transcript1.csv, https://example.com/transcript2.csv" />
+            <p class="field-hint">Enter up to 4 comma-separated CSV URLs containing earnings call transcript data for automated sentiment & extraction parsing.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel section-alice">
+        <h2>📈 Live Stock & Market Equity Analysis</h2>
+        <p class="panel-desc">Analyze any stock or ETF ticker symbol using Twelve Data, Earnings Call CSV parsers, and OpenRouter GenAI models.</p>
+
+        <!-- Quick Ticker Selection Pills -->
+        <div class="quick-tickers-section" style="margin-top: 1rem;">
+          <label style="font-weight:800; display:block; margin-bottom:0.4rem; color:var(--purple-darkest);">🇺🇸 USA Tickers:</label>
+          <div class="quick-tickers">
+            <button type="button" class="ticker-pill active" data-ticker="AAPL">AAPL (Apple)</button>
+            <button type="button" class="ticker-pill" data-ticker="MSFT">MSFT (Microsoft)</button>
+            <button type="button" class="ticker-pill" data-ticker="NVDA">NVDA (Nvidia)</button>
+            <button type="button" class="ticker-pill" data-ticker="GOOGL">GOOGL (Alphabet)</button>
+            <button type="button" class="ticker-pill" data-ticker="TSLA">TSLA (Tesla)</button>
+          </div>
+          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇪🇺 Europe Tickers:</label>
+          <div class="quick-tickers">
+            <button type="button" class="ticker-pill" data-ticker="ASML">ASML (ASML Holding)</button>
+            <button type="button" class="ticker-pill" data-ticker="SAP">SAP (SAP SE)</button>
+            <button type="button" class="ticker-pill" data-ticker="NVO">NVO (Novo Nordisk)</button>
+            <button type="button" class="ticker-pill" data-ticker="SHEL">SHEL (Shell PLC)</button>
+            <button type="button" class="ticker-pill" data-ticker="AZN">AZN (AstraZeneca)</button>
+          </div>
+          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇦🇷 Argentina Tickers:</label>
+          <div class="quick-tickers">
+            <button type="button" class="ticker-pill" data-ticker="GGAL">GGAL (Grupo Financiero Galicia)</button>
+            <button type="button" class="ticker-pill" data-ticker="YPF">YPF (YPF S.A.)</button>
+            <button type="button" class="ticker-pill" data-ticker="BMA">BMA (Banco Macro)</button>
+            <button type="button" class="ticker-pill" data-ticker="PAM">PAM (Pampa Energía)</button>
+            <button type="button" class="ticker-pill" data-ticker="TEO">TEO (Telecom Argentina)</button>
+          </div>
+          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇦🇹 Austria Tickers:</label>
+          <div class="quick-tickers">
+            <button type="button" class="ticker-pill" data-ticker="ERST.VI">ERST.VI (Erste Group Bank)</button>
+            <button type="button" class="ticker-pill" data-ticker="OMV.VI">OMV.VI (OMV AG)</button>
+            <button type="button" class="ticker-pill" data-ticker="VER.VI">VER.VI (Verbund AG)</button>
+            <button type="button" class="ticker-pill" data-ticker="VOE.VI">VOE.VI (Voestalpine AG)</button>
+            <button type="button" class="ticker-pill" data-ticker="VIG.VI">VIG.VI (Vienna Insurance Grp)</button>
+          </div>
+          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇲🇽 Mexico Tickers:</label>
+          <div class="quick-tickers">
+            <button type="button" class="ticker-pill" data-ticker="FMX">FMX (Femsa ADR)</button>
+            <button type="button" class="ticker-pill" data-ticker="AMX">AMX (América Móvil ADR)</button>
+            <button type="button" class="ticker-pill" data-ticker="KOF">KOF (Coca-Cola FEMSA ADR)</button>
+          </div>
+
+          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇨🇴 Colombia Tickers:</label>
+          <div class="quick-tickers">
+            <button type="button" class="ticker-pill" data-ticker="EC">EC (Ecopetrol ADR)</button>
+            <button type="button" class="ticker-pill" data-ticker="CIB">CIB (Bancolombia ADR)</button>
+            <button type="button" class="ticker-pill" data-ticker="AVAL">AVAL (Grupo Aval ADR)</button>
+          </div>
+        </div>
+        
+        <form id="ticker-form">
+          <div class="api-keys-grid">
+            <div class="input-group">
+              <label for="ticker">Stock / ETF Ticker Symbol</label>
+              <input id="ticker" name="ticker" type="text" class="ticker-input-highlight" placeholder="e.g. AAPL, MSFT, NVDA, GOOGL, TSLA" value="AAPL" required />
+            </div>
+
+            <div class="input-group">
+              <label for="analysis-mode">Analysis Scope / Focus</label>
+              <select id="analysis-mode" name="analysis-mode">
+                <option value="comprehensive">Comprehensive Equity Research Memorandum</option>
+                <option value="technical">Technical Momentum & Moving Average Crossovers (SMA/RSI)</option>
+                <option value="volatility">Risk & Volatility Analysis (90-Day StdDev / Drawdowns)</option>
+                <option value="signals">Key Support/Resistance & Catalyst Signals</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">📊 Analyze Stock & Generate Report</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Live Dashboard Panel: Quotes, Metrics, and SVG Chart (Shade 5: Sky Blue) -->
+      <section class="panel section-sky" id="ticker-dashboard-panel" style="display: none;">
+        <div class="panel-header">
+          <div>
+            <span class="badge" id="dash-ticker-badge">AAPL</span>
+            <h3 id="dash-company-title" style="margin: 0.3rem 0 0 0;">Apple Inc. Real-Time Market Overview</h3>
+            <p class="panel-desc" id="dash-time-desc">90-Day Price Action & Technical Indicator Synthesis</p>
+          </div>
+        </div>
+
+        <!-- Metrics Cards Grid -->
+        <div class="quote-metrics-grid" id="dash-metrics-grid">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Interactive Chart Type Selector -->
+        <div class="chart-type-selector" style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <button type="button" class="ticker-pill active" id="btn-chart-price" data-mode="price">📈 Price & SMA</button>
+          <button type="button" class="ticker-pill" id="btn-chart-candlestick" data-mode="candlestick">🕯️ Candlestick</button>
+          <button type="button" class="ticker-pill" id="btn-chart-macd" data-mode="macd">📉 MACD Indicator</button>
+          <button type="button" class="ticker-pill" id="btn-chart-rsi" data-mode="rsi">📊 RSI (14)</button>
+        </div>
+
+        <!-- Interactive SVG Price Chart -->
+        <div class="chart-wrapper">
+          <div class="chart-header">
+            <h4>📈 90-Day Price Trend & SMA Moving Averages</h4>
+            <div class="chart-legend">
+              <div class="legend-item"><span class="legend-color" style="background: var(--purple-dark);"></span> Close Price</div>
+              <div class="legend-item"><span class="legend-color" style="background: #2563eb;"></span> SMA (20)</div>
+              <div class="legend-item"><span class="legend-color" style="background: #dc2626;"></span> SMA (50)</div>
+            </div>
+          </div>
+          <div class="svg-chart-container" id="svg-chart-box">
+            <!-- Dynamically rendered SVG -->
+          </div>
+        </div>
+      </section>
+
+      <div id="portfolio-dashboard-panel" class="dashboard-grid" style="margin-top: 2rem; display: none;">
+        <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+          <h3>📈 Multi-Ticker Portfolio Equity Curve</h3>
+          <div id="portfolio-chart-box" style="height: 350px; width: 100%;"></div>
+        </div>
+        
+        <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
+          <h3>📊 Cross-Regional Correlation Heatmap</h3>
+          <p class="subtitle" style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">Cells under <strong>0.25</strong> highlighted in light green show the empirical diversification hedge [6].</p>
+          <div id="correlation-matrix-container"></div>
+        </div>
+
+        <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
+          <h3>🏛️ Investment Committee Portfolio Advisory Report</h3>
+          <div id="portfolio-commentary-container" style="margin-top: 1rem; font-size: 0.95rem; line-height: 1.6; color: #1e293b;">
+            <p style="color: #64748b;">Generating elite multi-regional portfolio strategy and risk commentary...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS DISPLAY SECTION (Shade 10: Bright Ice Blue) -->
+    <section class="panel section-bright" id="results-panel">
+      <div class="results-header">
+        <h3>📄 Generated Research Note / Results</h3>
+        <button id="btn-copy-note" class="btn-small" style="display: none;">📋 Copy Note</button>
+      </div>
+
+      <!-- Sentiment Analysis Visualizer Gauge Box -->
+      <div id="sentiment-gauge-container" class="sentiment-gauge-box" style="display: none;">
+        <div class="gauge-header">
+          <h4>📊 AI Sentiment & Tone Analysis Gauge</h4>
+          <span id="gauge-score-badge" class="gauge-badge">Bullish (+72%)</span>
+        </div>
+        <div class="gauge-svg-wrapper" id="gauge-svg-box">
+          <!-- Rendered via JS -->
+        </div>
+        <p class="gauge-desc" id="gauge-desc-text">Interpreting tone, sentiment keywords, and directional momentum from generated analysis.</p>
+      </div>
+
+      <div id="results">
+        <p class="placeholder">Select a research option above and click "Generate Analyst Research Note" to see structured output here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer section-periwinkle">
+    <p>GenAI Equity Research System — Real-Time Market Intelligence & AI Analysis</p>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
+
