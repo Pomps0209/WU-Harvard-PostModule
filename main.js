@@ -685,7 +685,7 @@ function renderCorrelationHeatmap(tickers, allSeries) {
       let rValue = i === j ? 1.00 : correlation(returnsData[i], returnsData[j]);
       if (isNaN(rValue)) rValue = 0.50;
       let isHedged = rValue < 0.25 && i !== j; // Highlight weak/uncorrelated pairs [6]
-      let cellStyle = isHedged ? 'style="padding:8px; background-color: #e0f2fe; color: #2f5496; font-weight: bold;"' : 'style="padding:8px; background:#fff;"';
+      let cellStyle = isHedged ? 'style="padding:8px; background-color: #d1fae5; color: #2f5496; font-weight: bold;"' : 'style="padding:8px; background:#fff;"';
       html += `<td ${cellStyle}>${rValue.toFixed(2)}${isHedged ? ' *' : ''}</td>`;
     }
     html += '</tr>';
