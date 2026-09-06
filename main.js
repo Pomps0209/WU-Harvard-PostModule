@@ -9,7 +9,14 @@ const twelveDataKeyInput = document.getElementById('twelvedata-key');
 const results = document.getElementById('results');
 
 // Global state tracking for selected portfolio tickers
-let selectedPortfolioTickers = ['OMV.VI', 'VER.VI', 'ERST.VI', 'ASML', 'SAP', 'GGAL', 'FMX', 'EC']; // Default Core Portfolio
+let selectedPortfolioTickers = [
+  'AAPL', 'MSFT', 'NVDA', 'GOOGL', 'TSLA',
+  'ASML', 'SAP', 'NVO', 'SHEL', 'AZN',
+  'GGAL', 'YPF', 'BMA',
+  'ERST.VI', 'OMV.VI', 'VER.VI',
+  'FMX', 'AMX', 'KOF',
+  'EC', 'CIB'
+]; // Default Core Portfolio
 
 // Initial Setup
 document.addEventListener('DOMContentLoaded', () => {
