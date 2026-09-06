@@ -631,7 +631,8 @@ function calculateInverseVolWeights(allSeries) {
 async function buildPortfolioSeries(tickers, twelveKey, useRiskParity = true) {
   const allSeries = await Promise.all(tickers.map(async t => {
     try {
-      return await fetchPriceData(t, twelveKey);
+      const res = await fetchPriceData(t, twelveKey);
+      return res.prices || res;
     } catch {
       return generateSimulatedStockData(t).prices;
     }
