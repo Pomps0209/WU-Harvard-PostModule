@@ -325,7 +325,6 @@ async function runStockAnalysis(ticker) {
     // Update Dashboard UI
     updateDashboardUI(ticker, data.quote, data.prices, indicators);
     renderChartBasedOnMode(latestAnalysisCache);
-    renderPortfolioDashboard(ticker);
 
     // Generate Analyst Memorandum (via OpenRouter or rule synthesis)
     results.innerHTML = `<p>⏳ Synthesizing market research memorandum for <strong>${ticker}</strong> using technicals, news & transcripts...</p>`;
