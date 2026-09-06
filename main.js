@@ -795,14 +795,12 @@ function updateDynamicVectorMap(activeTickers, activeWeights) {
         
         const pathData = `M${start.x},${start.y} A${dr},${dr} 0 0,1 ${end.x},${end.y}`;
         
-        // Build SVG path element
+        // Build SVG path element (solid clean arc)
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", pathData);
-        path.setAttribute("stroke", "#60a5fa"); // Glowing cyan line
-        path.setAttribute("stroke-width", Math.max(1.5, weight * 10)); // Thickness proportional to weight
-        path.setAttribute("stroke-dasharray", "8,4"); // Animated dash effect
-        path.style.strokeDashoffset = "0";
-        path.style.animation = "dash 30s linear infinite"; // Optional slow motion
+        path.setAttribute("stroke", "#2f5496"); // Professional navy blue line matching theme
+        path.setAttribute("stroke-width", Math.max(2, weight * 12)); // Thickness proportional to weight
+        path.setAttribute("stroke-opacity", "0.7");
         
         flowLinesContainer.appendChild(path);
       }
@@ -1681,4 +1679,173 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// 1. Core Macro Data Store
+const MACRO_DATA = {
+  inflation: [
+    { country: "Austria (HQ)", flag: "🇦🇹", rate: 2.1, status: "stable", text: "Target range met." },
+    { country: "United States", flag: "🇺🇸", rate: 2.4, status: "stable", text: "PCE aligning to 2% target." },
+    { country: "Mexico", flag: "🇲🇽", rate: 4.8, status: "moderate", text: "Service inflation sticky." },
+    { country: "Colombia", flag: "🇨🇴", rate: 6.9, status: "elevated", text: "Indexation pressures remain." },
+    { country: "Argentina", flag: "🇦🇷", rate: 104.5, status: "critical", text: "Hyperinflation consolidation phase." }
+  ],
+  fxFallbacks: {
+    "USD": 1.11,   // 1 EUR = 1.11 USD
+    "MXN": 21.85,  // 1 EUR = 21.85 MXN
+    "COP": 4650.0, // 1 EUR = 4650.0 COP
+    "ARS": 1060.0  // 1 EUR = 1060.0 ARS (Official rate proxy)
+  }
+};
+
+// 2. Render Macro Elements
+function initMacroDashboard() {
+  // Render Inflation Cards
+  const infContainer = document.getElementById('inflation-container');
+  if (infContainer) {
+    infContainer.innerHTML = MACRO_DATA.inflation.map(item => {
+      let badgeColor = "#10b981"; // Stable (Green)
+      if (item.status === "moderate") badgeColor = "#f59e0b"; // Warning (Yellow)
+      if (item.status === "elevated") badgeColor = "#ef4444"; // High Warning (Light Red)
+      if (item.status === "critical") badgeColor = "#7f1d1d"; // Extreme (Deep Crimson)
+
+      return `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid #e2e8f0;">
+          <span style="color: #0f1e36; font-weight: 600; font-size: 0.9rem;">${item.flag} ${item.country}</span>
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span style="font-size: 0.75rem; color: #64748b; font-style: italic;">${item.text}</span>
+            <span style="background-color: ${badgeColor}; color: #ffffff; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: bold; font-family: monospace; font-size: 0.85rem;">
+              ${item.rate.toFixed(1)}%
+            </span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Fetch Live Daily FX Rates from Frankfurter API
+  fetchDailyFX();
+}
+
+// 3. Fetch FX Rates to EUR
+async function fetchDailyFX() {
+  const updateLabel = document.getElementById('fx-update-time');
+  
+  try {
+    const response = await fetch('https://api.frankfurter.app/latest?from=EUR&symbols=USD,MXN,COP');
+    if (!response.ok) throw new Error("API rate limits reached");
+    
+    const data = await response.json();
+    const rates = {
+      "EUR": 1.0000,
+      "USD": data.rates.USD,
+      "MXN": data.rates.MXN,
+      "COP": data.rates.COP,
+      "ARS": MACRO_DATA.fxFallbacks.ARS
+    };
+
+    if (updateLabel) updateLabel.textContent = `Feed Active: ${data.date}`;
+    renderFXRows(rates);
+
+  } catch (error) {
+    console.warn("FX API issue, using portfolio baseline reference rates:", error);
+    if (updateLabel) updateLabel.textContent = "Mode: Offline Reference Rates";
+    
+    const offlineRates = {
+      "EUR": 1.00,
+      ...MACRO_DATA.fxFallbacks
+    };
+    renderFXRows(offlineRates);
+  }
+}
+
+// 4. Render FX Rows
+function renderFXRows(rates) {
+  const fxContainer = document.getElementById('fx-rates-container');
+  if (!fxContainer) return;
+  
+  const fxAssets = [
+    { label: "Euro base (EUR/EUR)", symbol: "💶", rate: rates.EUR, digits: 4 },
+    { label: "US Dollar (EUR/USD)", symbol: "🇺🇸", rate: rates.USD, digits: 4 },
+    { label: "Mexican Peso (EUR/MXN)", symbol: "🇲🇽", rate: rates.MXN, digits: 2 },
+    { label: "Colombian Peso (EUR/COP)", symbol: "🇨🇴", rate: rates.COP, digits: 1 },
+    { label: "Argentine Peso (EUR/ARS)", symbol: "🇦🇷", rate: rates.ARS, digits: 1 }
+  ];
+
+  fxContainer.innerHTML = fxAssets.map(asset => {
+    return `
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border-bottom: 1px solid #e2e8f0;">
+        <span style="color: #0f1e36; font-weight: 600; font-size: 0.9rem;">${asset.symbol} ${asset.label}</span>
+        <span style="font-family: monospace; font-size: 0.9rem; color: #1d4ed8; font-weight: bold;">
+          ${asset.rate.toLocaleString(undefined, { minimumFractionDigits: asset.digits, maximumFractionDigits: asset.digits })}
+        </span>
+      </div>
+    `;
+  }).join('');
+}
+
+// Initialize macro dashboard on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+  initMacroDashboard();
+  injectTickerLogos();
+});
+
+// 1. Corporate Domain Mapping for Clearbit Logos
+const TICKER_DOMAINS = {
+  // Developed Core (Austria & Europe)
+  'OMV.VI': 'omv.com',
+  'VER.VI': 'verbund.com',
+  'ERST.VI': 'erstegroup.com',
+  'VOE.VI': 'voestalpine.com',
+  'VIG.VI': 'vig.com',
+  'ASML': 'asml.com',
+  'SAP': 'sap.com',
+  'NVO': 'novonordisk.com',
+  'SHEL': 'shell.com',
+  'AZN': 'astrazeneca.com',
+
+  // USA Liquidity Sleeve
+  'AAPL': 'apple.com',
+  'MSFT': 'microsoft.com',
+  'NVDA': 'nvidia.com',
+  'GOOGL': 'google.com',
+  'TSLA': 'tesla.com',
+
+  // Latin America Legs
+  'GGAL': 'grupogalicia.com',
+  'YPF': 'ypf.com',
+  'BMA': 'bancomacro.com.ar',
+  'PAM': 'pampaenergia.com',
+  'TEO': 'telecom.com.ar',
+  'FMX': 'femsa.com',
+  'AMX': 'americamovil.com',
+  'KOF': 'coca-colafemsa.com',
+  'EC': 'ecopetrol.com.co',
+  'CIB': 'bancolombia.com',
+  'AVAL': 'grupoaval.com'
+};
+
+// 2. Inject Logos into Ticker Pills
+function injectTickerLogos() {
+  document.querySelectorAll('.ticker-pill').forEach(pill => {
+    const ticker = pill.getAttribute('data-ticker');
+    const domain = TICKER_DOMAINS[ticker];
+    
+    if (domain && !pill.querySelector('.ticker-logo')) {
+      // Create img element
+      const img = document.createElement('img');
+      img.src = `https://logo.clearbit.com/${domain}?size=64`;
+      img.className = 'ticker-logo';
+      img.alt = `${ticker} logo`;
+      
+      // Fallback in case Clearbit has an outage or can't find a domain
+      img.onerror = function() {
+        this.style.display = 'none'; // Gracefully hide image if missing
+      };
+
+      // Prepend the logo to the pill's content
+      pill.insertBefore(img, pill.firstChild);
+    }
+  });
+}
+
 
