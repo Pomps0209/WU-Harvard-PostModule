@@ -729,7 +729,7 @@ function updateHedgeIndicator(tickers, returnsData) {
     statusBadge.style.backgroundColor = '#ffffff';
     statusBadge.style.color = '#0f1e36';
     statusBadge.style.border = '1px solid #1d4ed8';
-    statusBadge.innerText = '🛡️ ACTIVE HEDGE PROVEN';
+    statusBadge.innerText = '🛡️ LOW-CORRELATION DIVERSIFICATION SIGNAL';
   } else {
     alertBox.style.backgroundColor = '#e0f2fe';
     alertBox.style.border = '1px solid #1d4ed8';
@@ -1603,7 +1603,7 @@ function renderSentimentGauge(sentimentData) {
   `;
 }
 
-// AI Rebalance Advisor & Macro Stress Test Handlers
+// AI-Assisted Rebalance Commentary & Macro Stress Test Handlers
 document.addEventListener('DOMContentLoaded', () => {
   const aiRebalanceBtn = document.getElementById('ai-rebalance-btn');
   if (aiRebalanceBtn) {
