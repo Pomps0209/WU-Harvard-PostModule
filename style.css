@@ -236,3 +236,45 @@ input:focus, select:focus {
   justify-content: flex-start !important;
   padding: 0.4rem 0.8rem 0.4rem 0.6rem !important; /* Slightly more compact left padding */
 }
+
+/* Organized Regional Ticker Groups */
+.ticker-group-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem 0.8rem;
+  background-color: #ffffff;
+  border: 1px solid var(--terminal-border);
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.ticker-group-label {
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--primary-dark-blue);
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 0.3rem;
+}
+
+.quick-tickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Side-by-side Ticker & Analysis Scope Form Grid */
+.ticker-analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .ticker-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+}

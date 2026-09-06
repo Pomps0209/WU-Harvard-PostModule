@@ -685,7 +685,7 @@ function renderCorrelationHeatmap(tickers, allSeries) {
       let rValue = i === j ? 1.00 : correlation(returnsData[i], returnsData[j]);
       if (isNaN(rValue)) rValue = 0.50;
       let isHedged = rValue < 0.25 && i !== j; // Highlight weak/uncorrelated pairs [6]
-      let cellStyle = isHedged ? 'style="padding:8px; background-color: #E2EFDA; color: #2F5496; font-weight: bold;"' : 'style="padding:8px; background:#fff;"';
+      let cellStyle = isHedged ? 'style="padding:8px; background-color: #e0f2fe; color: #2f5496; font-weight: bold;"' : 'style="padding:8px; background:#fff;"';
       html += `<td ${cellStyle}>${rValue.toFixed(2)}${isHedged ? ' *' : ''}</td>`;
     }
     html += '</tr>';
@@ -722,20 +722,22 @@ function updateHedgeIndicator(tickers, returnsData) {
   if (!alertBox || !statusText || !statusBadge) return;
 
   if (avgCrossCorr < 0.25) { // Under the historical threshold [2]
-    alertBox.style.backgroundColor = '#ecfdf5';
-    alertBox.style.border = '1px solid #10b981';
-    statusText.style.color = '#065f46';
+    alertBox.style.backgroundColor = '#e0f2fe';
+    alertBox.style.border = '1px solid #1d4ed8';
+    statusText.style.color = '#000000';
     statusText.innerText = `PORTFOLIO SECURED (Avg Cross-Corr: ${avgCrossCorr.toFixed(2)})`;
-    statusBadge.style.backgroundColor = '#10b981';
-    statusBadge.style.color = 'white';
+    statusBadge.style.backgroundColor = '#ffffff';
+    statusBadge.style.color = '#0f1e36';
+    statusBadge.style.border = '1px solid #1d4ed8';
     statusBadge.innerText = '🛡️ ACTIVE HEDGE PROVEN';
   } else {
-    alertBox.style.backgroundColor = '#fffbeb';
-    alertBox.style.border = '1px solid #f59e0b';
-    statusText.style.color = '#92400e';
+    alertBox.style.backgroundColor = '#e0f2fe';
+    alertBox.style.border = '1px solid #1d4ed8';
+    statusText.style.color = '#000000';
     statusText.innerText = `CORRELATION CONVERGENCE (Avg Cross-Corr: ${avgCrossCorr.toFixed(2)})`;
-    statusBadge.style.backgroundColor = '#f59e0b';
-    statusBadge.style.color = 'white';
+    statusBadge.style.backgroundColor = '#ffffff';
+    statusBadge.style.color = '#0f1e36';
+    statusBadge.style.border = '1px solid #1d4ed8';
     statusBadge.innerText = '⚠️ RISK LEVEL ELEVATED';
   }
 }

@@ -74,56 +74,74 @@
         <p class="panel-desc">Analyze any stock or ETF ticker symbol using Twelve Data, Earnings Call CSV parsers, and OpenRouter GenAI models.</p>
 
         <!-- Quick Ticker Selection Pills -->
-        <div class="quick-tickers-section" style="margin-top: 1rem;">
-          <label style="font-weight:800; display:block; margin-bottom:0.4rem; color:var(--purple-darkest);">🇺🇸 USA Tickers:</label>
-          <div class="quick-tickers">
-            <button type="button" class="ticker-pill active" data-ticker="AAPL">🍎 AAPL (Apple)</button>
-            <button type="button" class="ticker-pill" data-ticker="MSFT">🪟 MSFT (Microsoft)</button>
-            <button type="button" class="ticker-pill" data-ticker="NVDA">🟩 NVDA (Nvidia)</button>
-            <button type="button" class="ticker-pill" data-ticker="GOOGL">🌐 GOOGL (Alphabet)</button>
-            <button type="button" class="ticker-pill" data-ticker="TSLA">🚗 TSLA (Tesla)</button>
-          </div>
-          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇪🇺 Europe Tickers:</label>
-          <div class="quick-tickers">
-            <button type="button" class="ticker-pill" data-ticker="ASML">📐 ASML (ASML Holding)</button>
-            <button type="button" class="ticker-pill" data-ticker="SAP">💼 SAP (SAP SE)</button>
-            <button type="button" class="ticker-pill" data-ticker="NVO">🧬 NVO (Novo Nordisk)</button>
-            <button type="button" class="ticker-pill" data-ticker="SHEL">🛢️ SHEL (Shell PLC)</button>
-            <button type="button" class="ticker-pill" data-ticker="AZN">💊 AZN (AstraZeneca)</button>
-          </div>
-          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇦🇷 Argentina Tickers:</label>
-          <div class="quick-tickers">
-            <button type="button" class="ticker-pill" data-ticker="GGAL">🏦 GGAL (Grupo Finc. Galicia)</button>
-            <button type="button" class="ticker-pill" data-ticker="YPF">⚡ YPF (YPF S.A.)</button>
-            <button type="button" class="ticker-pill" data-ticker="BMA">🏛️ BMA (Banco Macro)</button>
-            <button type="button" class="ticker-pill" data-ticker="PAM">🔌 PAM (Pampa Energía)</button>
-            <button type="button" class="ticker-pill" data-ticker="TEO">📡 TEO (Telecom Argentina)</button>
-          </div>
-          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇦🇹 Austria Tickers:</label>
-          <div class="quick-tickers">
-            <button type="button" class="ticker-pill" data-ticker="ERST.VI">🏦 ERST.VI (Erste Group)</button>
-            <button type="button" class="ticker-pill" data-ticker="OMV.VI">⛽ OMV.VI (OMV AG)</button>
-            <button type="button" class="ticker-pill" data-ticker="VER.VI">⚡ VER.VI (Verbund AG)</button>
-            <button type="button" class="ticker-pill" data-ticker="VOE.VI">⚙️ VOE.VI (Voestalpine)</button>
-            <button type="button" class="ticker-pill" data-ticker="VIG.VI">🛡️ VIG.VI (Vienna Ins Grp)</button>
-          </div>
-          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇲🇽 Mexico Tickers:</label>
-          <div class="quick-tickers">
-            <button type="button" class="ticker-pill" data-ticker="FMX">🥤 FMX (Femsa ADR)</button>
-            <button type="button" class="ticker-pill" data-ticker="AMX">📱 AMX (América Móvil)</button>
-            <button type="button" class="ticker-pill" data-ticker="KOF">🥤 KOF (Coca-Cola FEMSA)</button>
+        <div class="quick-tickers-section" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.6rem;">
+          
+          <div class="ticker-group-row">
+            <span class="ticker-group-label">🇺🇸 USA Tickers</span>
+            <div class="quick-tickers">
+              <button type="button" class="ticker-pill active" data-ticker="AAPL">🍎 AAPL (Apple)</button>
+              <button type="button" class="ticker-pill" data-ticker="MSFT">🪟 MSFT (Microsoft)</button>
+              <button type="button" class="ticker-pill" data-ticker="NVDA">🟩 NVDA (Nvidia)</button>
+              <button type="button" class="ticker-pill" data-ticker="GOOGL">🌐 GOOGL (Alphabet)</button>
+              <button type="button" class="ticker-pill" data-ticker="TSLA">🚗 TSLA (Tesla)</button>
+            </div>
           </div>
 
-          <label style="font-weight:800; display:block; margin:0.6rem 0 0.4rem; color:var(--purple-darkest);">🇨🇴 Colombia Tickers:</label>
-          <div class="quick-tickers">
-            <button type="button" class="ticker-pill" data-ticker="EC">🛢️ EC (Ecopetrol ADR)</button>
-            <button type="button" class="ticker-pill" data-ticker="CIB">🏦 CIB (Bancolombia)</button>
-            <button type="button" class="ticker-pill" data-ticker="AVAL">🏛️ AVAL (Grupo Aval)</button>
+          <div class="ticker-group-row">
+            <span class="ticker-group-label">🇪🇺 Europe Tickers</span>
+            <div class="quick-tickers">
+              <button type="button" class="ticker-pill" data-ticker="ASML">📐 ASML (ASML Holding)</button>
+              <button type="button" class="ticker-pill" data-ticker="SAP">💼 SAP (SAP SE)</button>
+              <button type="button" class="ticker-pill" data-ticker="NVO">🧬 NVO (Novo Nordisk)</button>
+              <button type="button" class="ticker-pill" data-ticker="SHEL">🛢️ SHEL (Shell PLC)</button>
+              <button type="button" class="ticker-pill" data-ticker="AZN">💊 AZN (AstraZeneca)</button>
+            </div>
           </div>
+
+          <div class="ticker-group-row">
+            <span class="ticker-group-label">🇦🇷 Argentina Tickers</span>
+            <div class="quick-tickers">
+              <button type="button" class="ticker-pill" data-ticker="GGAL">🏦 GGAL (Grupo Finc. Galicia)</button>
+              <button type="button" class="ticker-pill" data-ticker="YPF">⚡ YPF (YPF S.A.)</button>
+              <button type="button" class="ticker-pill" data-ticker="BMA">🏛️ BMA (Banco Macro)</button>
+              <button type="button" class="ticker-pill" data-ticker="PAM">🔌 PAM (Pampa Energía)</button>
+              <button type="button" class="ticker-pill" data-ticker="TEO">📡 TEO (Telecom Argentina)</button>
+            </div>
+          </div>
+
+          <div class="ticker-group-row">
+            <span class="ticker-group-label">🇦🇹 Austria Tickers</span>
+            <div class="quick-tickers">
+              <button type="button" class="ticker-pill" data-ticker="ERST.VI">🏦 ERST.VI (Erste Group)</button>
+              <button type="button" class="ticker-pill" data-ticker="OMV.VI">⛽ OMV.VI (OMV AG)</button>
+              <button type="button" class="ticker-pill" data-ticker="VER.VI">⚡ VER.VI (Verbund AG)</button>
+              <button type="button" class="ticker-pill" data-ticker="VOE.VI">⚙️ VOE.VI (Voestalpine)</button>
+              <button type="button" class="ticker-pill" data-ticker="VIG.VI">🛡️ VIG.VI (Vienna Ins Grp)</button>
+            </div>
+          </div>
+
+          <div class="ticker-group-row">
+            <span class="ticker-group-label">🇲🇽 Mexico Tickers</span>
+            <div class="quick-tickers">
+              <button type="button" class="ticker-pill" data-ticker="FMX">🥤 FMX (Femsa ADR)</button>
+              <button type="button" class="ticker-pill" data-ticker="AMX">📱 AMX (América Móvil)</button>
+              <button type="button" class="ticker-pill" data-ticker="KOF">🥤 KOF (Coca-Cola FEMSA)</button>
+            </div>
+          </div>
+
+          <div class="ticker-group-row">
+            <span class="ticker-group-label">🇨🇴 Colombia Tickers</span>
+            <div class="quick-tickers">
+              <button type="button" class="ticker-pill" data-ticker="EC">🛢️ EC (Ecopetrol ADR)</button>
+              <button type="button" class="ticker-pill" data-ticker="CIB">🏦 CIB (Bancolombia)</button>
+              <button type="button" class="ticker-pill" data-ticker="AVAL">🏛️ AVAL (Grupo Aval)</button>
+            </div>
+          </div>
+
         </div>
         
-        <form id="ticker-form">
-          <div class="api-keys-grid">
+        <form id="ticker-form" style="margin-top: 1.2rem;">
+          <div class="ticker-analysis-grid">
             <div class="input-group">
               <label for="ticker">Stock / ETF Ticker Symbol</label>
               <input id="ticker" name="ticker" type="text" class="ticker-input-highlight" placeholder="e.g. AAPL, MSFT, NVDA, GOOGL, TSLA" value="AAPL" required />
@@ -205,12 +223,12 @@
         <div class="card" style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-top: 1.5rem;">
           <h3>📊 Cross-Regional Correlation Heatmap</h3>
           <p class="subtitle" style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">Cells under <strong>0.25</strong> highlighted in light green show the empirical diversification hedge [6].</p>
-          <div id="hedge-status-alert" style="margin: 1rem 0; padding: 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-family: monospace;">
+          <div id="hedge-status-alert" style="margin: 1rem 0; padding: 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-family: monospace; background-color: #e0f2fe; border: 1px solid #1d4ed8; color: #000000;">
             <div>
-              <span style="font-weight: 800; display: block; font-size: 0.9rem;">EMERGING MARKET RISK STATUS:</span>
-              <span id="hedge-status-text" style="font-size: 1.1rem; font-weight: bold;">Analyzing correlations...</span>
+              <span style="font-weight: 800; display: block; font-size: 0.9rem; color: #0f1e36;">EMERGING MARKET RISK STATUS:</span>
+              <span id="hedge-status-text" style="font-size: 1.1rem; font-weight: bold; color: #000000;">Analyzing correlations...</span>
             </div>
-            <div id="hedge-status-badge" style="padding: 0.4rem 0.8rem; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">-</div>
+            <div id="hedge-status-badge" style="padding: 0.4rem 0.8rem; border-radius: 2px; font-weight: bold; font-size: 0.85rem; background: #ffffff; color: #0f1e36; border: 1px solid #1d4ed8;">-</div>
           </div>
           <div id="correlation-matrix-container"></div>
         </div>
